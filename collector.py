@@ -98,6 +98,9 @@ def run():
     indexed = {item.get("url"): item for item in records if item.get("url")}
     timestamp = now()
     feeds = config.get("feeds", [])
+    if not any(f.get("enabled") and f.get("authorizationConfirmed") for f in feeds):
+        print("No authorized feeds configured; leaving historical data unchanged.")
+        return
     for feed in feeds:
         if not feed.get("enabled") or not feed.get("authorizationConfirmed"):
             continue
