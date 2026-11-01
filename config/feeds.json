@@ -1,0 +1,4 @@
+{
+  "feeds": [],
+  "notes": "Add only feeds you have permission to collect; sample: {name, url, searchId, enabled:true, authorizationConfirmed:true}. Facebook and Craigslist native alert emails are not direct RSS scrape targets."
+}
