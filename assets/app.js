@@ -1,5 +1,5 @@
 "use strict";
-const $=id=>document.getElementById(id),BASE=new URL(".",document.currentScript.src);
+const $=id=>document.getElementById(id),BASE=new URL("../",document.currentScript.src);
 const storeKey="deal-scout-local-v2";
 function readLocal(){try{return JSON.parse(localStorage.getItem(storeKey)||"{}")}catch{return {}}}
 let local=readLocal();
