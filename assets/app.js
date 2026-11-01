@@ -104,10 +104,10 @@ function bars(entries,color=""){
 }
 function groups(arr,get){const c=new Map();arr.forEach(x=>{const k=get(x);c.set(k,(c.get(k)||0)+1)});return [...c.entries()].sort((a,b)=>b[1]-a[1])}
 const runSources=()=>new Set(runs.filter(x=>x.status==="ok"&&x.completedAt&&Date.now()-Date.parse(x.completedAt)<86400000&&Date.now()-Date.parse(x.completedAt)>=0).map(x=>canonicalSource(x.source)));
-function sourceInfo(){return SOURCES.map(s=>({...s,count:all().filter(x=>canonicalSource(x.source)===s.id).length,success:runs.find(x=>canonicalSource(x.source)===s.id&&x.status==="ok"),failure:runs.find(x=>canonicalSource(x.source)===s.id&&x.status!=="ok")}))}
+function sourceInfo(){return SOURCES.map(s=>{const success=runs.find(x=>canonicalSource(x.source)===s.id&&x.status==="ok"),failure=runs.find(x=>canonicalSource(x.source)===s.id&&x.status!=="ok");return {...s,count:all().filter(x=>canonicalSource(x.source)===s.id).length,success,failure,recentSuccess:!!(success&&success.completedAt&&Date.now()-Date.parse(success.completedAt)>=0&&Date.now()-Date.parse(success.completedAt)<86400000)}})}
 function renderSourceStrip(){
  const info=sourceInfo().filter(x=>x.priority);
- $("sourceStrip").innerHTML=info.map(x=>'<div class="priority-source"><span class="prio-label">'+esc(x.name)+'</span><strong>'+x.count+' historical/recorded</strong><span class="'+(x.success?"status-good":"status-off")+'">'+(x.success?"Collector run recorded":"Not connected")+'</span></div>').join("")+'<span class="small" style="align-self:center">Other sources in the <a href="#sources" id="viewAllSources">Sources tab</a></span>';
+ $("sourceStrip").innerHTML=info.map(x=>'<div class="priority-source"><span class="prio-label">'+esc(x.name)+'</span><strong>'+x.count+' historical/recorded</strong><span class="'+(x.recentSuccess?"status-good":"status-off")+'">'+(x.recentSuccess?"Checked within 24h":x.success?"Stale source check":"Not connected")+'</span></div>').join("")+'<span class="small" style="align-self:center">Other sources in the <a href="#sources" id="viewAllSources">Sources tab</a></span>';
  const a=$("viewAllSources");if(a)a.onclick=e=>{e.preventDefault();setTab("sources")};
 }
 function renderSearchChoices(){
@@ -179,8 +179,8 @@ function renderMetrics(){
 }
 function renderSources(){
  $("sourceCards").innerHTML=sourceInfo().map(s=>{
-  const status=s.success?"Connected — run recorded":s.failure?"Last run failed":"Not connected";
-  return '<div class="source-card"><strong>'+esc(s.name)+'</strong><span class="badge '+(s.success?"green":"amber")+'">'+esc(status)+'</span><p>'+s.count+' recorded leads (historical + imported + collected)</p><p>'+esc(s.method)+'</p><p class="small">'+(s.success?"Last success: "+esc(String(s.success.completedAt||"").replace("T"," ").slice(0,19)):"No confirmed successful feed run")+'</p></div>';
+  const status=s.recentSuccess?"Checked within 24h":s.success?"Stale source check":s.failure?"Last run failed":"Not connected";
+  return '<div class="source-card"><strong>'+esc(s.name)+'</strong><span class="badge '+(s.recentSuccess?"green":"amber")+'">'+esc(status)+'</span><p>'+s.count+' recorded leads (historical + imported + collected)</p><p>'+esc(s.method)+'</p><p class="small">'+(s.success?"Last success: "+esc(String(s.success.completedAt||"").replace("T"," ").slice(0,19)):"No confirmed successful feed run")+'</p></div>';
  }).join("");
 }
 function setForm(search){
