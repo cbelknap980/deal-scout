@@ -79,7 +79,6 @@ function searchMatch(item,search){
  if(isNum(search.minYear)&&(!isNum(item.year)||Number(item.year)<Number(search.minYear)))return false;
  if(isNum(search.maxYear)&&(!isNum(item.year)||Number(item.year)>Number(search.maxYear)))return false;
  if(isNum(search.maxMiles)&&(!isNum(item.miles)||Number(item.miles)>Number(search.maxMiles)))return false;
- if(isNum(search.maxPrice)&&(!isNum(item.price)||Number(item.price)>Number(search.maxPrice)))return false;
  const areas=String(search.areas||"").split(/[;,]/).map(s=>s.trim().toLowerCase()).filter(Boolean).filter(s=>s!=="nationwide"&&s!=="us");
  if(areas.length&&!areas.some(s=>String(item.location||"").toLowerCase().includes(s)))return false;
  return true;
@@ -104,7 +103,7 @@ function bars(entries,color=""){
  return entries.map(([k,v])=>'<div class="barrow"><strong>'+esc(k)+'</strong><div class="bar-track"><div class="bar-fill '+color+'" style="width:'+Math.min(100,100*v/max)+'%"></div></div><b>'+v+'</b></div>').join("");
 }
 function groups(arr,get){const c=new Map();arr.forEach(x=>{const k=get(x);c.set(k,(c.get(k)||0)+1)});return [...c.entries()].sort((a,b)=>b[1]-a[1])}
-const runSources=()=>new Set(runs.filter(x=>x.status==="ok").map(x=>canonicalSource(x.source)));
+const runSources=()=>new Set(runs.filter(x=>x.status==="ok"&&x.completedAt&&Date.now()-Date.parse(x.completedAt)<86400000&&Date.now()-Date.parse(x.completedAt)>=0).map(x=>canonicalSource(x.source)));
 function sourceInfo(){return SOURCES.map(s=>({...s,count:all().filter(x=>canonicalSource(x.source)===s.id).length,success:runs.find(x=>canonicalSource(x.source)===s.id&&x.status==="ok"),failure:runs.find(x=>canonicalSource(x.source)===s.id&&x.status!=="ok")}))}
 function renderSourceStrip(){
  const info=sourceInfo().filter(x=>x.priority);
@@ -112,7 +111,7 @@ function renderSourceStrip(){
  const a=$("viewAllSources");if(a)a.onclick=e=>{e.preventDefault();setTab("sources")};
 }
 function renderSearchChoices(){
- const old=$("searchFilter").value||local.selectedSearchId||local.searches[0].id;
+ const old=local.selectedSearchId||$("searchFilter").value||local.searches[0].id;
  const options=local.searches.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>').join("");
  $("searchFilter").innerHTML=options;
  $("searchFilter").value=local.searches.some(x=>x.id===old)?old:local.searches[0].id;
