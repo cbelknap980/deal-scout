@@ -3,16 +3,16 @@ const $=id=>document.getElementById(id);
 const ROOT=new URL("../",document.currentScript.src);
 const STORE_KEY="deal-scout-local-v2";
 const SOURCES=[
- {id:"fbmarketplace",name:"Facebook Marketplace",method:"Saved-search notifications / authorized provider",priority:true},
- {id:"craigslist",name:"Craigslist",method:"Saved-search emails / authorized collection",priority:true},
- {id:"offerup",name:"OfferUp",method:"Authorized alerts / listing imports"},
- {id:"cycletrader",name:"Cycle Trader",method:"Saved-search emails / authorized data feeds"},
- {id:"ebay",name:"eBay Motors",method:"Official Browse API (credentials pending)"},
- {id:"autotrader",name:"Autotrader Motorcycles",method:"Permitted public results / authorized feeds"},
- {id:"powersports",name:"PowerSports.com",method:"Permitted public pages / authorized feeds"},
- {id:"motohunt",name:"MotoHunt",method:"Permitted results / authorized feeds"},
- {id:"revtero",name:"Revtero",method:"Permitted results / authorized feeds"},
- {id:"pages",name:"Owners' forums & extra pages",method:"Authorized RSS / public forum feeds"}
+ {id:"fbmarketplace",name:"Facebook Marketplace",method:"Saved-search notifications / authorized provider",setup:"Enable Marketplace saved-search notifications, then connect an authorized email/provider intake. No live feed is configured.",priority:true},
+ {id:"craigslist",name:"Craigslist",method:"Saved-search emails / authorized collection",setup:"Create saved-search email alerts, then connect the private email intake. The one recorded listing is historical.",priority:true},
+ {id:"offerup",name:"OfferUp",method:"Authorized alerts / listing imports",setup:"Capture listing links through permitted notifications or the import form. Three historical examples are recorded."},
+ {id:"cycletrader",name:"Cycle Trader",method:"Saved-search emails / authorized data feeds",setup:"Create a used Daytona 675R saved-search email alert, then connect email intake."},
+ {id:"ebay",name:"eBay Motors",method:"Official Browse API (credentials pending)",setup:"Create eBay developer credentials for the official Browse API and save secrets outside this public website."},
+ {id:"autotrader",name:"Autotrader Motorcycles",method:"Permitted public results / authorized feeds",setup:"Configure a permitted public feed or authorized data source; not yet collecting."},
+ {id:"powersports",name:"PowerSports.com",method:"Permitted public pages / authorized feeds",setup:"Configure a permitted feed or public source adapter; not yet collecting."},
+ {id:"motohunt",name:"MotoHunt",method:"Permitted results / authorized feeds",setup:"Configure a permitted inventory feed or adapter; one older dealer record is present."},
+ {id:"revtero",name:"Revtero",method:"Permitted results / authorized feeds",setup:"Add an approved listing feed or search provider when available."},
+ {id:"pages",name:"Owners' forums & extra pages",method:"Authorized RSS / public forum feeds",setup:"Enter a permitted RSS/Atom forum URL in config/feeds.json."}
 ];
 const defaults=()=>({
  id:"daytona-675r",name:"Triumph Daytona 675R",keywords:"Daytona 675R, 675R",
@@ -180,7 +180,7 @@ function renderMetrics(){
 function renderSources(){
  $("sourceCards").innerHTML=sourceInfo().map(s=>{
   const status=s.recentSuccess?"Checked within 24h":s.success?"Stale source check":s.failure?"Last run failed":"Not connected";
-  return '<div class="source-card"><strong>'+esc(s.name)+'</strong><span class="badge '+(s.recentSuccess?"green":"amber")+'">'+esc(status)+'</span><p>'+s.count+' recorded leads (historical + imported + collected)</p><p>'+esc(s.method)+'</p><p class="small">'+(s.success?"Last success: "+esc(String(s.success.completedAt||"").replace("T"," ").slice(0,19)):"No confirmed successful feed run")+'</p></div>';
+  return '<div class="source-card"><strong>'+esc(s.name)+'</strong><span class="badge '+(s.recentSuccess?"green":"amber")+'">'+esc(status)+'</span><p>'+s.count+' recorded leads (historical + imported + collected)</p><p>'+esc(s.method)+'</p><p class="small"><strong>To activate:</strong> '+esc(s.setup||"Configure approved feed")+'</p><p class="small">'+(s.success?"Last success: "+esc(String(s.success.completedAt||"").replace("T"," ").slice(0,19)):"No confirmed successful feed run")+'</p></div>';
  }).join("");
 }
 function setForm(search){
