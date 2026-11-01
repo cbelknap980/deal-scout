@@ -2,6 +2,24 @@
 
 **Independent of Claude.** This project is a public, static GitHub Pages dashboard with a scheduled Python collector. No passwords, API keys, or private emails belong in this public repository.
 
+
+## 2026-10-31 interface audit and corrections
+
+The site's initial upload simplified the original saved-search setup and was missing important filters. The current frontend includes:
+- **Priority source strip** for Facebook Marketplace and Craigslist with honest connected/not-connected states.
+- **Listings tab** with keyword, seller, tracking status, source, sortable price, year, mileage, location text and verification filters, plus a deal-only toggle.
+- **Saved Searches tab** with the full original record structure: name, keywords, exclude words, category, maxPrice, marketPrice, dealPct, minYear, maxYear, maxMiles, ZIP, radiusMi, areas, extraUrls, sources, alerts, active and notes.
+- **Sources tab** showing all ten source channels (Facebook, Craigslist, OfferUp, Cycle Trader, eBay, Autotrader, PowerSports, MotoHunt, Revtero, owners' forums).
+- **Metrics tab** that differentiates records from actual successful collector checks. Source status is only current when a successful check was logged within the past 24 hours.
+- **Offline fallback** so the five historical starting records still display if repository JSON cannot be fetched.
+- **Smoke tests** in \`tests/dashboard-smoke.cjs\` checking listing display, sources, price rules, saved filters, and JSON fallback. \`pages.yml\` now runs these tests before deploying.
+
+**Critical status:** Five historical leads, one from Craigslist and none from Facebook Marketplace. \`config/feeds.json\` is empty, so no Facebook, Craigslist, eBay or other live collections are connected. Enabling an every-30-minute GitHub Actions schedule alone is not a working collector.
+
+**Missing infrastructure:** GitHub Pages does not provide private backend storage, multi-device sync for search settings, automatic Gmail/Marketplace email ingestion, geocoding for ZIP/radius, or outbound email alerts. ZIP and radius are stored but not currently enforced; city/state text filtering works locally.
+
+For troubleshooting, see [Actions](https://github.com/cbelknap980/deal-scout/actions) → **Publish Deal Scout dashboard**. If deployment succeeded but the display appears stale, refresh with cache cleared. The site URL is [Deal Scout](https://cbelknap980.github.io/deal-scout/).
+
 ## Dashboard
 - Listings, filters, statuses, and a deal-scoring view.
 - Metrics tab with unique listings, private-party leads, source performance and source-run health.
