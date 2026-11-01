@@ -1,0 +1,112 @@
+[
+  {
+    "id": "offerup-vista-2012",
+    "searchId": "daytona-675r",
+    "source": "offerup",
+    "title": "2012 Triumph Daytona 675R — track-oriented",
+    "year": 2012,
+    "price": 3200,
+    "miles": null,
+    "location": "Vista, CA",
+    "sellerType": "private",
+    "url": "https://offerup.com/item/detail/7fa1ae1a-6ce6-366c-a031-feb4d4225fac",
+    "foundAt": "2026-10-31T00:00:00Z",
+    "discoveredBy": "ChatGPT",
+    "verification": "Historical lead — availability unconfirmed",
+    "notes": "Track-oriented; title and registration require verification",
+    "priceHistory": [
+      {
+        "price": 3200,
+        "at": "2026-10-31"
+      }
+    ]
+  },
+  {
+    "id": "craigslist-mariposa-2012",
+    "searchId": "daytona-675r",
+    "source": "craigslist",
+    "title": "2012 Triumph Daytona 675R",
+    "year": 2012,
+    "price": 6500,
+    "miles": 13500,
+    "location": "Mariposa, CA",
+    "sellerType": "private",
+    "url": "https://www.craigslist.org/view/d/mariposa-2012-triumph-daytona-675r/r1JvJzod2vTyRigvdgG4Sc",
+    "foundAt": "2026-10-31T00:00:00Z",
+    "discoveredBy": "ChatGPT",
+    "verification": "Indexed only — direct availability unconfirmed",
+    "notes": "Cosmetic damage and reported check-engine/gauge issues",
+    "priceHistory": [
+      {
+        "price": 6500,
+        "at": "2026-10-31"
+      }
+    ]
+  },
+  {
+    "id": "offerup-citrus-2014",
+    "searchId": "daytona-675r",
+    "source": "offerup",
+    "title": "2014 Triumph Daytona 675R",
+    "year": 2014,
+    "price": 7200,
+    "miles": null,
+    "location": "Citrus Heights, CA",
+    "sellerType": "private",
+    "url": "https://offerup.com/item/detail/a3aeac1e-02f2-3216-a79c-aa4860dc0ea3",
+    "foundAt": "2026-10-31T00:00:00Z",
+    "discoveredBy": "ChatGPT",
+    "verification": "Historical lead — availability unconfirmed",
+    "notes": "Seller-reported maintenance; title/mileage require verification",
+    "priceHistory": [
+      {
+        "price": 7200,
+        "at": "2026-10-31"
+      }
+    ]
+  },
+  {
+    "id": "offerup-norwood-2015",
+    "searchId": "daytona-675r",
+    "source": "offerup",
+    "title": "2015 Triumph Daytona 675R",
+    "year": 2015,
+    "price": 8500,
+    "miles": 13000,
+    "location": "Norwood, MA",
+    "sellerType": "private",
+    "url": "https://offerup.com/item/detail/d5329550-40c1-363c-8842-3a7078d9f130",
+    "foundAt": "2026-10-31T00:00:00Z",
+    "discoveredBy": "ChatGPT",
+    "verification": "Historical lead — availability unconfirmed",
+    "notes": "Seller-reported clean title; condition not independently checked",
+    "priceHistory": [
+      {
+        "price": 8500,
+        "at": "2026-10-31"
+      }
+    ]
+  },
+  {
+    "id": "motohunt-jax-2016",
+    "searchId": "daytona-675r",
+    "source": "motohunt",
+    "title": "2016 Triumph Daytona 675R ABS",
+    "year": 2016,
+    "price": 8991,
+    "miles": 17430,
+    "location": "Jacksonville, FL",
+    "sellerType": "dealer",
+    "url": "https://motohunt.com/l/13488440/2016-Triumph-Daytona-675-R-ABS",
+    "foundAt": "2026-10-31T00:00:00Z",
+    "discoveredBy": "ChatGPT",
+    "verification": "Historical lead — availability unconfirmed",
+    "notes": "Dealer listing; seller confirmation required",
+    "priceHistory": [
+      {
+        "price": 8991,
+        "at": "2026-10-31"
+      }
+    ]
+  }
+]
