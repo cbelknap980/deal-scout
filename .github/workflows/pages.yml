@@ -6,6 +6,7 @@ on:
       - "index.html"
       - "assets/**"
       - "data/**"
+      - "tests/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 permissions:
@@ -23,6 +24,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check dashboard JavaScript syntax
+        run: node --check assets/app.js
+      - name: Test listings, filters, source status, and price rules
+        run: node tests/dashboard-smoke.cjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Assemble public website
@@ -32,7 +40,7 @@ jobs:
           cp -r assets data _site/
           touch _site/.nojekyll
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: _site
       - name: Deploy to GitHub Pages
