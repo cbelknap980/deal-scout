@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1514"><title>Deal Scout — Independent Deal Finder</title>
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+ <div class="brand"><div class="brand-icon">◇</div><div><strong>Deal Scout</strong><small>INDEPENDENT COLLECTOR</small></div></div>
+ <nav aria-label="Main navigation">
+ <button data-tab="listings" class="active">▦ <span>Listings</span></button>
+ <button data-tab="metrics">▥ <span>Metrics</span></button>
+ <button data-tab="sources">◉ <span>Sources</span></button>
+ <button data-tab="settings">⚙ <span>Settings & Import</span></button>
+ </nav>
+ <div class="side-bottom"><div><span class="dot"></span> <span id="syncState">Loading snapshot</span></div><p>Independent project · GitHub Pages</p><p>No Claude integration</p></div>
+</aside>
+<main class="main">
+<header><div><p class="eyebrow">DEAL INTELLIGENCE / NATIONWIDE</p><h1 id="heading">Listing command center</h1><p id="subtitle">Every lead in one place. Historical listings are not confirmed available.</p></div><div class="right"><span id="modeBadge" class="badge amber">Snapshot mode</span><button id="refresh" class="btn">↻ Refresh</button></div></header>
+<div class="notice"><strong>Collection status:</strong> <span id="collectionNotice">No verified live feed yet.</span> Seed records are historical leads from October 31, 2026, not newly verified opportunities.</div>
+<section id="listings" class="page active">
+ <div class="toolbar"><label>Saved search <select id="searchFilter"></select></label><input id="query" placeholder="Search listings, cities, notes…"><select id="sourceFilter"><option value="">All sources</option></select><select id="sellerFilter"><option value="">All sellers</option><option value="private">Private party</option><option value="dealer">Dealer</option></select><select id="sortFilter"><option value="newest">Newest found</option><option value="price">Price: low to high</option><option value="discount">Largest discount</option></select></div>
+ <div class="stats" id="stats"></div>
+ <div class="panel"><div class="panel-head"><h2>Listings</h2><span class="small" id="resultCount"></span></div><div class="table-wrap"><table><thead><tr><th>Listing</th><th>Asking</th><th>Mileage</th><th>Source</th><th>Market diff.</th><th>Deal status</th><th>Track</th></tr></thead><tbody id="listingRows"></tbody></table></div></div>
+ <p class="small">Pricing uses a provisional dealer asking-price reference, not a condition-adjusted private-party appraisal. Qualification requires both the under-market threshold and a configured price ceiling.</p>
+</section>
+<section id="metrics" class="page">
+ <div class="stats" id="metricStats"></div>
+ <div class="two-col"><div class="panel"><h2>Unique leads by source</h2><div id="sourceBars"></div></div><div class="panel"><h2>Private-party discovery</h2><div id="privateBars"></div></div></div>
+ <div class="two-col"><div class="panel"><h2>Discovery benchmark</h2><p class="small">Counts reflect records explicitly attributed to a collector. These are not equal-duration comparison tests.</p><div id="agentBars"></div></div><div class="panel"><h2>Collection health</h2><div class="table-wrap"><table><thead><tr><th>Source</th><th>Last run</th><th>Status</th><th>Added</th></tr></thead><tbody id="healthRows"></tbody></table></div></div></div>
+ <div class="panel"><h2>Benchmark integrity</h2><p>Claude's historical handoff reported nine dealer listings, but those records are not imported individually. We do not count or treat those nine listings as leads collected by this independent app. Grok has no supplied dataset yet.</p><p class="small">Seller-confirmed availability is currently unknown for all seed listings. The system measures records found, not total marketplace coverage.</p></div>
+</section>
+<section id="sources" class="page">
+ <div class="panel"><h2>Source registry</h2><p class="small">These are planned input channels. A source without a successful recorded run is not presented as operational.</p><div class="source-grid" id="sourceCards"></div></div>
+ <div class="panel"><h2>Collector pipeline</h2><p>Permitted RSS feeds and eBay's official API can feed a scheduled GitHub Actions workflow. Facebook and Craigslist will use authorized notifications and imports. Login-required or blocked pages are not crawled without permission.</p></div>
+</section>
+<section id="settings" class="page">
+ <div class="two-col"><div class="panel"><h2>Saved searches</h2><p class="small">Settings are saved to this browser for now. They are not synchronized across devices on a static site.</p><div id="searchEditor"></div><button id="addSearch" class="btn">+ Add search</button><p id="settingsMessage" class="small"></p></div>
+ <div class="panel"><h2>Deal rules</h2><label class="field">Price ceiling ($)<input type="number" min="0" id="ceiling" placeholder="Required for deal alerts"></label><label class="field">Market reference ($)<input type="number" min="1" id="marketPrice"></label><label class="field">Minimum below-market discount (%)<input type="number" min="0" max="99" id="threshold"></label><button id="saveRules" class="btn primary">Save rules</button><p class="small">Local settings currently affect the dashboard only; automated collector defaults are configured in GitHub workflow settings.</p></div></div>
+ <div class="panel"><h2>Import listings</h2><p class="small">Paste a JSON array or one JSON listing per line. Must include source, title, URL, price and searchId. Imported data remains in this browser unless separately added to the repository.</p><textarea id="importText" rows="7" placeholder='{"searchId":"daytona-675r","source":"fbmarketplace","title":"2013 Triumph Daytona 675R","price":6900,"year":2013,"url":"https://example.com/listing","location":"Denver, CO","sellerType":"private"}'></textarea><div class="toolbar"><button id="importButton" class="btn primary">Import records</button><button id="exportButton" class="btn">Export JSON</button><button id="clearLocal" class="btn">Clear local additions</button></div><p id="importMessage" class="small"></p></div>
+</section>
+<footer>Deal Scout · Independent GitHub project · <span id="lastUpdated">Historical starting data</span></footer>
+</main>
+</div>
+<script src="./assets/app.js"></script>
+</body></html>
